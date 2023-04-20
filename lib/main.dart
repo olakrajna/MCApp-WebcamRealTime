@@ -86,7 +86,7 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   createLabeler() async {
-    final modelPath = await _getModel('assets/ml/ssd_mobilenet.tflite');
+    final modelPath = await _getModel('assets/ml/modelamd.tflite');
     final options = LocalLabelerOptions(modelPath: modelPath,confidenceThreshold: 0.2);
     imageLabeler = ImageLabeler(options: options);
   }

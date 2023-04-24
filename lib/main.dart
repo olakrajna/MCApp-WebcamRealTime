@@ -51,7 +51,7 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   loadCamera() {
-    cameraController = CameraController(cameras![0], ResolutionPreset.high);
+    cameraController = CameraController(cameras[0], ResolutionPreset.high);
     cameraController!.initialize().then((value) {
       if (!mounted) {
         return;

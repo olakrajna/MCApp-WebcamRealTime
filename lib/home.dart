@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,34 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool _loading = true;
-  late File _image;
   final imagepicker = ImagePicker();
-
-  _loading_gallery() async {
-    var image = await imagepicker.getImage(source: ImageSource.gallery);
-    if (image == null) {
-      return null;
-    } else {
-      setState(() {
-        _loading = false;
-      });
-      _image = File(image.path);
-    }
-  }
-
-  _loading_camera() async {
-    var image = await imagepicker.getImage(source: ImageSource.camera);
-    if (image == null) {
-      return null;
-    } else {
-      setState(() {
-        _loading = false;
-      });
-      _image = File(image.path);
-      print('Selected image from gallery: $_image');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +32,7 @@ class _HomeState extends State<Home> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 1.6,
               decoration: BoxDecoration(
-                color: Color(0xFF19191E),
+                color: const Color(0xFF19191E),
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(70),
                 ),
@@ -68,7 +40,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('/images/logo12.png', height: 300),
+                  Image.asset('assets/images/logo12.png', height: 300),
                   SizedBox(height: 15),
                   Padding(padding: EdgeInsets.symmetric(horizontal: 40)),
                   Text(

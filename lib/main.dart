@@ -1,16 +1,11 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lottie/lottie.dart';
-import 'package:mcapp/home.dart';
-import 'package:mcapp/secondscreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mcapp/splashscreen.dart';
-import 'package:path/path.dart';
 import 'package:tflite/tflite.dart';
-import 'package:path_provider/path_provider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -101,7 +96,6 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Live Emotion Detection App')),
       body: Column(children: [
         Padding(
           padding: EdgeInsets.all(20),
@@ -118,8 +112,14 @@ class _CameraScreenState extends State<CameraScreen> {
         ),
         Text(
           output,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        )
+        style: GoogleFonts.getFont(
+    'Montserrat',
+    textStyle: TextStyle(
+    color: Colors.grey.shade300,
+    fontSize: 30,
+    ),
+        ),
+        ),
       ]),
     );
   }

@@ -1,11 +1,17 @@
 import 'dart:async';
 import 'package:camera/camera.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mcapp/onboard.dart';
 import 'package:mcapp/splashscreen.dart';
 import 'package:tflite/tflite.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'home.dart';
+
+
+bool? seenOnboard;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -17,17 +23,27 @@ class MyApp extends StatelessWidget {
       title: 'MCA',
       theme: ThemeData(brightness: Brightness.dark, primaryColor: Colors.teal),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: seenOnboard == true ? SplashScreen() : OnBoard(),
     );
   }
 }
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
+  SystemChrome.setEnabledSystemUIOverlays(
+      [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  // to load onboard for the first time only
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  seenOnboard = pref.getBool('seenOnboard') ?? false;
+  if (seenOnboard == false) {
+    await pref.setBool('seenOnboard', true);
+  } //if null set to false
+
   runApp(const MyApp());
 }
+
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
@@ -96,6 +112,7 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF19191E),
       body: Column(children: [
         Padding(
           padding: EdgeInsets.all(20),

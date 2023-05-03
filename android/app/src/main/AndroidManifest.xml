@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mcapp">
    <application
-        android:label="mcapp"
+        android:label="Melanoma Classification"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

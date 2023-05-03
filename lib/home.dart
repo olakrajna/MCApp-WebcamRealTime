@@ -1,7 +1,11 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mcapp/main.dart';
 import 'package:mcapp/secondscreen.dart';
+import 'package:mcapp/onboard.dart';
+
+
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -40,7 +44,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/images/logo12.png', height: 300),
+                  Image.asset('assets/images/logo12.png', height: 260),
                   SizedBox(height: 15),
                   Padding(padding: EdgeInsets.symmetric(horizontal: 40)),
                   Text(
@@ -72,7 +76,7 @@ class _HomeState extends State<Home> {
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 2.666,
-                  padding: EdgeInsets.only(top: 40, bottom: 30),
+                  padding: EdgeInsets.only(top: 40, bottom: 20),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:
@@ -89,7 +93,7 @@ class _HomeState extends State<Home> {
                                 wordSpacing: 2,
                                 color: Color.fromRGBO(25, 25, 30, 1))),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 10),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: Text(
@@ -102,15 +106,15 @@ class _HomeState extends State<Home> {
                               )),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 15),
                       GestureDetector(
-                          onTap: () {    Navigator.push(context, MaterialPageRoute(builder: (context) => SecondScreen()));
+                          onTap: () {    Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
                             print("Click");
                           },
                           child: Container(
                               alignment: Alignment.center,
-                              width: 250,
-                              height: 50,
+                              width: 200,
+                              height: 40,
                               decoration: BoxDecoration(
                                 color: Color.fromRGBO(25, 25, 30, 1),
                                 borderRadius: BorderRadius.circular(12),
@@ -137,11 +141,53 @@ class _HomeState extends State<Home> {
                                 children: [
                                   SizedBox(width: 10),
                                   Text(
-                                    "Get started",
+                                    "Camera",
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 18),
                                   ),
                                   Icon(Icons.arrow_forward),
+                                ],
+                              ))),
+                      SizedBox(height: 15),
+                      GestureDetector(
+                          onTap: () {    Navigator.push(context, MaterialPageRoute(builder: (context) => OnBoard()));
+                          print("Click");
+                          },
+                          child: Container(
+                              alignment: Alignment.center,
+                              width: 200,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(25, 25, 30, 1),
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color.fromARGB(
+                                        247,
+                                        0,
+                                        0,
+                                        0,
+                                      ),
+                                      spreadRadius: 2,
+                                      blurRadius: 8,
+                                      offset: Offset(4, 4)),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      spreadRadius: 1,
+                                      blurRadius: 8,
+                                      offset: Offset(-4, -4)),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(width: 10),
+                                  Text(
+                                    "Instruction",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                  Icon(Icons.arrow_forward,  color: Colors.white),
                                 ],
                               )))
                     ],

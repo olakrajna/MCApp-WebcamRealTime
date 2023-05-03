@@ -43,7 +43,7 @@ dependencies:
   camera: ^0.10.4
   path_provider: ^2.0.11
   tflite: ^1.1.2
-
+  shared_preferences: ^2.1.0
 
 
 dev_dependencies:
@@ -74,6 +74,12 @@ flutter:
     - assets/animations/thewire2.json 
     - assets/ml/melanoma.tflite
     - assets/ml/label.txt
+    - assets/images/body.png
+    - assets/images/smartphone.png
+    - assets/images/spotlight.png
+    - assets/images/phone-camera.png
+    - assets/images/dermatology.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -85,7 +85,7 @@ class _SecondScreenState extends State<SecondScreen> {
               ),
             SizedBox(height: 10,),
             Container(
-              height: 120,
+              height: 140,
               width: 325,
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(10), 
@@ -107,7 +107,7 @@ class _SecondScreenState extends State<SecondScreen> {
               ),
               SizedBox(height: 10.0),
               Container(
-              height: 160,
+              height: 100,
               width: 325,
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(10), 
@@ -126,38 +126,6 @@ class _SecondScreenState extends State<SecondScreen> {
                       
                     ),
                     SizedBox(height: 10),
-                GestureDetector(
-                  onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
-                    print("Click");
-                  },
-                  
-                  child: Container(                    
-                    alignment: Alignment.center,
-                    width: 200, 
-                    height: 40,
-                    decoration: BoxDecoration(color: Color.fromRGBO(25, 25, 30, 1),borderRadius: BorderRadius.circular(12), 
-                    boxShadow: [BoxShadow(color: Color.fromARGB(247, 0, 0, 0, ), spreadRadius: 2, blurRadius: 8,
-                    offset: Offset(4,4)
-                    ),
-                    BoxShadow(color: Colors.white, spreadRadius: 1, blurRadius: 8,
-                    offset: Offset(-4,-4)
-                    ),
-                    ],                    
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [                      
-                    SizedBox(width: 10),
-                    Text(
-                    "Camera",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    Icon(Icons.arrow_forward),
-                      ],
-                  )
-                )
-                )
                   ], // <-- Added closing bracket here
                 ),
               ),

@@ -8,9 +8,6 @@ import 'package:mcapp/splashscreen.dart';
 import 'package:tflite/tflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home.dart';
-
-
 bool? seenOnboard;
 
 class MyApp extends StatelessWidget {
@@ -30,16 +27,13 @@ class MyApp extends StatelessWidget {
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
-  SystemChrome.setEnabledSystemUIOverlays(
-      [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   // to load onboard for the first time only
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
   SharedPreferences pref = await SharedPreferences.getInstance();
   seenOnboard = pref.getBool('seenOnboard') ?? false;
-  if (seenOnboard == false) {
-    await pref.setBool('seenOnboard', true);
-  } //if null set to false
 
   runApp(const MyApp());
 }
@@ -58,6 +52,11 @@ class _CameraScreenState extends State<CameraScreen> {
   CameraImage? cameraImage;
   CameraController? cameraController;
   String output = '';
+
+  bool isMalignantAndDangerous() {
+    return output.startsWith('Malignant') && double.parse(output.substring(output.indexOf(' ') + 1, output.indexOf('%'))) >= 90;
+  }
+
 
   @override
   void initState() {
@@ -98,7 +97,7 @@ class _CameraScreenState extends State<CameraScreen> {
           asynch: true);
       predictions!.forEach((element) {
         setState(() {
-          output = element['label'];
+          output = '${element['label']} ${(element['confidence'] * 100).toStringAsFixed(2)}%';
         });
       });
     }
@@ -112,32 +111,44 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF19191E),
-      body: Column(children: [
-        Padding(
-          padding: EdgeInsets.all(20),
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.7,
-            width: MediaQuery.of(context).size.width,
-            child: !cameraController!.value.isInitialized
-                ? Container()
-                : AspectRatio(
-              aspectRatio: cameraController!.value.aspectRatio,
-              child: CameraPreview(cameraController!),
+      body: Stack(
+        children: [
+          Column(children: [
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.7,
+                width: MediaQuery.of(context).size.width,
+                child: !cameraController!.value.isInitialized
+                    ? Container()
+                    : AspectRatio(
+                  aspectRatio: cameraController!.value.aspectRatio,
+                  child: CameraPreview(cameraController!),
+                ),
+              ),
             ),
-          ),
-        ),
-        Text(
-          output,
-        style: GoogleFonts.getFont(
-    'Montserrat',
-    textStyle: TextStyle(
-    color: Colors.grey.shade300,
-    fontSize: 30,
-    ),
-        ),
-        ),
-      ]),
+            Text(
+              output,
+              style: GoogleFonts.getFont(
+                'Montserrat',
+                textStyle: TextStyle(
+                  color: Colors.grey.shade300,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+          ]),
+          if (isMalignantAndDangerous())
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.red, width: 10),
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
+
 }

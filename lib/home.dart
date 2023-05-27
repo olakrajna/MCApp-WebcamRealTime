@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mcapp/main.dart';
 import 'package:mcapp/secondscreen.dart';
 import 'package:mcapp/onboard.dart';
+import 'package:page_transition/page_transition.dart';
 
 
 
@@ -108,9 +109,17 @@ class _HomeState extends State<Home> {
                       ),
                       SizedBox(height: 15),
                       GestureDetector(
-                          onTap: () {    Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                child: SecondScreen(),
+                              ),
+                            );
                             print("Click");
                           },
+
                           child: Container(
                               alignment: Alignment.center,
                               width: 200,
@@ -150,8 +159,15 @@ class _HomeState extends State<Home> {
                               ))),
                       SizedBox(height: 15),
                       GestureDetector(
-                          onTap: () {    Navigator.push(context, MaterialPageRoute(builder: (context) => OnBoard()));
-                          print("Click");
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                child: OnBoard(),
+                              ),
+                            );
+                            print("Click");
                           },
                           child: Container(
                               alignment: Alignment.center,

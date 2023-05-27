@@ -7,6 +7,7 @@ import 'package:mcapp/onboard.dart';
 import 'package:mcapp/splashscreen.dart';
 import 'package:tflite/tflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:page_transition/page_transition.dart';
 
 bool? seenOnboard;
 
@@ -26,12 +27,15 @@ class MyApp extends StatelessWidget {
 }
 
 late List<CameraDescription> cameras;
+late List<CameraDescription> secondCameras;
+
 Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   // to load onboard for the first time only
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
+  secondCameras = await availableCameras();
   SharedPreferences pref = await SharedPreferences.getInstance();
   seenOnboard = pref.getBool('seenOnboard') ?? false;
 
@@ -48,8 +52,8 @@ class CameraScreen extends StatefulWidget {
 
 class _CameraScreenState extends State<CameraScreen> {
   late CameraController controller;
-
   CameraImage? cameraImage;
+
   CameraController? cameraController;
   String output = '';
 
@@ -105,8 +109,10 @@ class _CameraScreenState extends State<CameraScreen> {
 
   loadmodel() async {
     await Tflite.loadModel(
-        model: "assets/ml/melanoma.tflite", labels: "assets/ml/label.txt");
+        model: "assets/ml/modelLAST22.tflite", labels: "assets/ml/label.txt");
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +152,122 @@ class _CameraScreenState extends State<CameraScreen> {
                 ),
               ),
             ),
+        ],
+      ),
+    );
+  }
+
+}
+
+class SecondCameraScreen extends StatefulWidget {
+  const SecondCameraScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SecondCameraScreen> createState() => _SecondCameraScreenState();
+}
+
+class _SecondCameraScreenState extends State<SecondCameraScreen> {
+
+  late CameraController secondCameraController;
+  CameraImage? secondCameraImage;
+
+  CameraController? cameraController;
+  String output = '';
+
+
+  @override
+  void initState() {
+    super.initState();
+    loadSecondCamera();
+    loadSecondModel();
+  }
+
+  loadSecondCamera() {
+    secondCameraController = CameraController(secondCameras[0], ResolutionPreset.high);
+    secondCameraController.initialize().then((value) {
+      if (!mounted) {
+        return;
+      } else {
+        setState(() {
+          secondCameraController.startImageStream((imageStream) {
+            secondCameraImage = imageStream;
+            runSecondModel();
+          });
+        });
+      }
+    });
+  }
+  List<Map<String, dynamic>> results = [];
+  runSecondModel() async {
+    if (secondCameraImage != null) {
+      var predictions = await Tflite.runModelOnFrame(
+        bytesList: secondCameraImage!.planes.map((plane) {
+          return plane.bytes;
+        }).toList(),
+        imageHeight: secondCameraImage!.height,
+        imageWidth: secondCameraImage!.width,
+        imageMean: 127.5,
+        imageStd: 127.5,
+        rotation: 90,
+        numResults: 2,
+        threshold: 0.1,
+        asynch: true,
+      );
+      results.clear(); // Wyczyść listę wyników przed aktualizacją
+      predictions!.forEach((element) {
+        Map<String, dynamic> result = {
+          'label': element['label'],
+          'confidence': (element['confidence'] * 100).toStringAsFixed(2),
+        };
+        results.add(result); // Dodaj wynik do listy
+      });
+
+      setState(() {
+        // Aktualizuj zmienną output
+        output = results.map((result) {
+          return '${result['label']} ${result['confidence']}%';
+        }).join('\n');
+      });
+    }
+  }
+  loadSecondModel() async {
+    await Tflite.loadModel(
+      model: "assets/ml/model9.tflite",
+      labels: "assets/ml/labels9.txt",
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Column(children: [
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.7,
+                width: MediaQuery.of(context).size.width,
+                child: !secondCameraController!.value.isInitialized
+                    ? Container()
+                    : AspectRatio(
+                  aspectRatio: secondCameraController!.value.aspectRatio,
+                  child: CameraPreview(secondCameraController!),
+                ),
+              ),
+            ),
+            Text(
+              output,
+              style: GoogleFonts.getFont(
+                'Montserrat',
+                textStyle: TextStyle(
+                  color: Colors.grey.shade300,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+          ])
         ],
       ),
     );

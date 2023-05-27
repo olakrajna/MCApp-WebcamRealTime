@@ -13,6 +13,20 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
+PageRoute buildPageRoute(Widget destination) {
+  return PageRouteBuilder(
+    transitionDuration: const Duration(milliseconds: 500), // Czas trwania animacji
+    pageBuilder: (context, animation, secondaryAnimation) => destination,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      // Dostosuj efekt przejścia tutaj
+      return FadeTransition(
+        opacity: animation,
+        child: child,
+      );
+    },
+  );
+}
+
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
@@ -20,10 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       const Duration(seconds: 6),
-      () => Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (BuildContext context) => const Home(),
-        ),
+          () => Navigator.of(context).pushReplacement(
+        buildPageRoute(const Home()),
+
       ),
     );
   }

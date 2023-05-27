@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mcapp/onborad_data.dart';
+import 'package:mcapp/secondscreen.dart';
 import 'package:mcapp/size_configs.dart';
 import 'package:mcapp/app_styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -92,7 +93,7 @@ class _OnBoardState extends State<OnBoard> {
                         height: sizeV * 5,
                       ),
                       Container(
-                        height: sizeV * 35,
+                        height: sizeV * 33,
                         child: Image.asset(
                           onboardingContents[index].image,
                           fit: BoxFit.contain,
@@ -135,7 +136,7 @@ class _OnBoardState extends State<OnBoard> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Home(),
+                                  builder: (context) => SecondScreen(),
                                 ));
                           },
                           bgColor: kPrimaryColor,

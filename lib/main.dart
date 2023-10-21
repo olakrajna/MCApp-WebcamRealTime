@@ -123,6 +123,7 @@ class _CameraScreenState extends State<CameraScreen> {
             Padding(
               padding: EdgeInsets.all(20),
               child: Container(
+                  color: Color.fromRGBO(25, 25, 30, 1),
                 height: MediaQuery.of(context).size.height * 0.7,
                 width: MediaQuery.of(context).size.width,
                 child: !cameraController!.value.isInitialized
@@ -232,7 +233,7 @@ class _SecondCameraScreenState extends State<SecondCameraScreen> {
   }
   loadSecondModel() async {
     await Tflite.loadModel(
-      model: "assets/ml/model9.tflite",
+      model: "assets/ml/model9v4.tflite",
       labels: "assets/ml/labels9.txt",
     );
   }
@@ -243,10 +244,12 @@ class _SecondCameraScreenState extends State<SecondCameraScreen> {
     return Scaffold(
       body: Stack(
         children: [
+
           Column(children: [
             Padding(
               padding: EdgeInsets.all(20),
               child: Container(
+                  color: Color.fromRGBO(25, 115, 200, 1),
                 height: MediaQuery.of(context).size.height * 0.7,
                 width: MediaQuery.of(context).size.width,
                 child: !secondCameraController!.value.isInitialized

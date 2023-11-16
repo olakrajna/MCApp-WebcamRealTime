@@ -112,7 +112,7 @@ class _OnBoardState extends State<OnBoard> {
                                 fontWeight: FontWeight.w300,
                                 letterSpacing: 1,
                                 wordSpacing: 2,
-                                color: Color.fromRGBO(25, 25, 30, 1))),
+                                color: Colors.black)),
                         textAlign: TextAlign.center,
                       ),),
                       SizedBox(
@@ -233,7 +233,7 @@ class MyTextButton extends StatelessWidget {
             width: 250,
             height: 50,
             decoration: BoxDecoration(
-              color: Color.fromRGBO(25, 25, 30, 1),
+              color: Color.fromRGBO(244, 178, 176, 1),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
@@ -261,7 +261,7 @@ class MyTextButton extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                Icon(Icons.arrow_forward,  color: Colors.white),
+                Icon(Icons.arrow_forward,  color: Colors.white,),
               ],
             ),
           ),

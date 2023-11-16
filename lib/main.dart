@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mcapp/home.dart';
 import 'package:mcapp/onboard.dart';
 import 'package:mcapp/splashscreen.dart';
 import 'package:tflite/tflite.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'MCA',
       theme: ThemeData(brightness: Brightness.dark, primaryColor: Colors.teal),
       debugShowCheckedModeBanner: false,
-      home: seenOnboard == true ? SplashScreen() : OnBoard(),
+      home: seenOnboard == true ? Home(): OnBoard(),
     );
   }
 }
@@ -123,7 +124,7 @@ class _CameraScreenState extends State<CameraScreen> {
             Padding(
               padding: EdgeInsets.all(20),
               child: Container(
-                  color: Color.fromRGBO(25, 25, 30, 1),
+                  color: Color.fromRGBO(179, 64, 74, 1),
                 height: MediaQuery.of(context).size.height * 0.7,
                 width: MediaQuery.of(context).size.width,
                 child: !cameraController!.value.isInitialized

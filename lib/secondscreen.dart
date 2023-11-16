@@ -21,7 +21,7 @@ class _SecondScreenState extends State<SecondScreen> {
           height: MediaQuery.of(context).size.height, 
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Color(0xFF19191E),
+            color: Colors.white,
           ),
           child: Column(
   mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +45,8 @@ class _SecondScreenState extends State<SecondScreen> {
               height: MediaQuery.of(context).size.height/3,
               width: 325,
               padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(10), 
+              decoration: BoxDecoration(color: Color.fromRGBO(244, 178, 176, 1),
+                  borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,7 +57,7 @@ class _SecondScreenState extends State<SecondScreen> {
                       style: GoogleFonts.getFont(
                         'Montserrat',
                         textStyle: TextStyle(
-                          color: Color.fromRGBO(25, 25, 30, 1),
+                          color: Colors.white,
                           fontSize: 20,
                             fontWeight: FontWeight.bold
 
@@ -70,7 +71,7 @@ class _SecondScreenState extends State<SecondScreen> {
                       style: GoogleFonts.getFont(
                         'Montserrat',
                         fontSize: 16,
-                        color: Color.fromRGBO(25, 25, 30, 1),
+                        color: Colors.white,
                       ),
                     ),
                     SizedBox(height: 40,),
@@ -90,7 +91,7 @@ class _SecondScreenState extends State<SecondScreen> {
                             width: 200,
                             height: 40,
                             decoration: BoxDecoration(
-                              color: Color.fromRGBO(25, 25, 30, 1),
+                                color: Colors.white,
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
@@ -117,9 +118,9 @@ class _SecondScreenState extends State<SecondScreen> {
                                 Text(
                                   "Camera",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                      color: Color.fromRGBO(179, 64, 74, 1), fontSize: 18),
                                 ),
-                                Icon(Icons.arrow_forward),
+                                Icon(Icons.arrow_forward, color: Color.fromRGBO(179, 64, 74, 1),),
                               ],
                             ))),
                   ],
@@ -132,7 +133,7 @@ class _SecondScreenState extends State<SecondScreen> {
               height: MediaQuery.of(context).size.height/3,
               width: 325,
               padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(10), 
+              decoration: BoxDecoration(color: Color.fromRGBO(244, 178, 176, 1), borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,7 +144,7 @@ class _SecondScreenState extends State<SecondScreen> {
                       style: GoogleFonts.getFont(
                         'Montserrat',
                         textStyle: TextStyle(
-                          color: Color.fromRGBO(25, 25, 30, 1),
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
 
@@ -157,7 +158,7 @@ class _SecondScreenState extends State<SecondScreen> {
                       style: GoogleFonts.getFont(
                         'Montserrat',
                         fontSize: 16,
-                        color: Color.fromRGBO(25, 25, 30, 1),
+                        color: Colors.white,
                       ),
                     ),
                     SizedBox(height: 10,),
@@ -177,7 +178,7 @@ class _SecondScreenState extends State<SecondScreen> {
                             width: 200,
                             height: 40,
                             decoration: BoxDecoration(
-                              color: Color.fromRGBO(25, 25, 30, 1),
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
@@ -204,9 +205,9 @@ class _SecondScreenState extends State<SecondScreen> {
                                 Text(
                                   "Camera",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                      color: Color.fromRGBO(179, 64, 74, 1), fontSize: 18),
                                 ),
-                                Icon(Icons.arrow_forward),
+                                Icon(Icons.arrow_forward, color: Color.fromRGBO(179, 64, 74, 1),),
                               ],
                             ))),
                   ], // <-- Added closing bracket here

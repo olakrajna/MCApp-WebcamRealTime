@@ -30,14 +30,14 @@ class _HomeState extends State<Home> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 1.6,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Color.fromRGBO(179, 64, 74, 1),
               ),
             ),
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 1.6,
               decoration: BoxDecoration(
-                color: const Color(0xFF19191E),
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(70),
                 ),
@@ -49,12 +49,12 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 15),
                   Padding(padding: EdgeInsets.symmetric(horizontal: 40)),
                   Text(
-                    'MELANOMA \n CLASSIFICATION ',
+                    'SKIN LESION \n CLASSIFICATION ',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.getFont(
                       'Montserrat',
                       textStyle: TextStyle(
-                        color: Colors.grey.shade300,
+                        color: Colors.grey.shade400,
                         fontSize: 30,
                       ),
                     ),
@@ -68,7 +68,7 @@ class _HomeState extends State<Home> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 2.666,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(25, 25, 30, 1),
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
                   height: MediaQuery.of(context).size.height / 2.666,
                   padding: EdgeInsets.only(top: 40, bottom: 20),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Color.fromRGBO(179, 64, 74, 1),
                       borderRadius:
                           BorderRadius.only(topLeft: Radius.circular(70))),
                   child: Column(
@@ -92,7 +92,8 @@ class _HomeState extends State<Home> {
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 1,
                                 wordSpacing: 2,
-                                color: Color.fromRGBO(25, 25, 30, 1))),
+                              color: Colors.white,
+                            )),
                       ),
                       SizedBox(height: 10),
                       Padding(
@@ -103,7 +104,7 @@ class _HomeState extends State<Home> {
                           style: GoogleFonts.getFont('Montserrat',
                               textStyle: TextStyle(
                                 fontSize: 20,
-                                color: Colors.black.withOpacity(0.6),
+                                color: Colors.white.withOpacity(0.6),
                               )),
                         ),
                       ),
@@ -125,25 +126,25 @@ class _HomeState extends State<Home> {
                               width: 200,
                               height: 40,
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(25, 25, 30, 1),
+                                color: Color.fromRGBO(244, 178, 176, 1),
                                 borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromARGB(
-                                        247,
-                                        0,
-                                        0,
-                                        0,
-                                      ),
-                                      spreadRadius: 2,
-                                      blurRadius: 8,
-                                      offset: Offset(4, 4)),
-                                  BoxShadow(
-                                      color: Colors.white,
-                                      spreadRadius: 1,
-                                      blurRadius: 8,
-                                      offset: Offset(-4, -4)),
-                                ],
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //       color: Color.fromARGB(
+                                //         247,
+                                //         0,
+                                //         0,
+                                //         0,
+                                //       ),
+                                //       spreadRadius: 2,
+                                //       blurRadius: 8,
+                                //       offset: Offset(4, 4)),
+                                //   BoxShadow(
+                                //       color: Colors.white,
+                                //       spreadRadius: 1,
+                                //       blurRadius: 8,
+                                //       offset: Offset(-4, -4)),
+                                // ],
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -174,25 +175,25 @@ class _HomeState extends State<Home> {
                               width: 200,
                               height: 40,
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(25, 25, 30, 1),
+                                color: Color.fromRGBO(244, 178, 176, 1),
                                 borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromARGB(
-                                        247,
-                                        0,
-                                        0,
-                                        0,
-                                      ),
-                                      spreadRadius: 2,
-                                      blurRadius: 8,
-                                      offset: Offset(4, 4)),
-                                  BoxShadow(
-                                      color: Colors.white,
-                                      spreadRadius: 1,
-                                      blurRadius: 8,
-                                      offset: Offset(-4, -4)),
-                                ],
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //       color: Color.fromARGB(
+                                //         247,
+                                //         0,
+                                //         0,
+                                //         0,
+                                //       ),
+                                //       spreadRadius: 2,
+                                //       blurRadius: 8,
+                                //       offset: Offset(4, 4)),
+                                //   BoxShadow(
+                                //       color: Colors.white,
+                                //       spreadRadius: 1,
+                                //       blurRadius: 8,
+                                //       offset: Offset(-4, -4)),
+                                // ],
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

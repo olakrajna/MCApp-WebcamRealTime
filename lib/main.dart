@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mcapp/home.dart';
 import 'package:mcapp/onboard.dart';
 import 'package:mcapp/splashscreen.dart';
@@ -118,6 +120,7 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Column(children: [
@@ -243,9 +246,9 @@ class _SecondCameraScreenState extends State<SecondCameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-
           Column(children: [
             Padding(
               padding: EdgeInsets.all(20),
@@ -277,4 +280,258 @@ class _SecondCameraScreenState extends State<SecondCameraScreen> {
     );
   }
 
+}
+
+class ImagePickerDemo extends StatefulWidget {
+  @override
+  _ImagePickerDemoState createState() => _ImagePickerDemoState();
+}
+
+class _ImagePickerDemoState extends State<ImagePickerDemo> {
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
+  File? file;
+  var _recognitions;
+  var v = "";
+  // var dataList = [];
+  @override
+  void initState() {
+    super.initState();
+    loadmodel().then((value) {
+      setState(() {});
+    });
+  }
+
+  loadmodel() async {
+    await Tflite.loadModel(
+      model: "assets/model9.tflite",
+      labels: "assets/labels9.txt",
+    );
+  }
+
+  Future<void> _pickImage() async {
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        _image = image;
+        file = File(image!.path);
+      });
+      detectimage(file!);
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
+
+  Future detectimage(File image) async {
+    int startTime = new DateTime.now().millisecondsSinceEpoch;
+    var recognitions = await Tflite.runModelOnImage(
+      path: image.path,
+      numResults: 6,
+      threshold: 0.05,
+      imageMean: 127.5,
+      imageStd: 127.5,
+    );
+    setState(() {
+      _recognitions = recognitions;
+      v = recognitions.toString();
+      // dataList = List<Map<String, dynamic>>.from(jsonDecode(v));
+    });
+    print("//////////////////////////////////////////////////");
+    print(_recognitions);
+    // print(dataList);
+    print("//////////////////////////////////////////////////");
+    int endTime = new DateTime.now().millisecondsSinceEpoch;
+    print("Inference took ${endTime - startTime}ms");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            if (_image != null)
+              Image.file(
+                File(_image!.path),
+                height: 200,
+                width: 200,
+                fit: BoxFit.cover,
+              )
+            else
+              Text('No image selected',
+                style: TextStyle(
+                    color: Colors.grey.shade400,
+                     fontSize: 20),),
+            SizedBox(height: 20),
+            GestureDetector(
+            onTap: _pickImage,
+                child: Container(
+                    alignment: Alignment.center,
+                    width: 250,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(244, 178, 176, 1),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color.fromARGB(
+                              247,
+                              0,
+                              0,
+                              0,
+                            ),
+                            spreadRadius: 2,
+                            blurRadius: 8,
+                            offset: Offset(4, 4)),
+                        BoxShadow(
+                            color: Colors.white,
+                            spreadRadius: 1,
+                            blurRadius: 8,
+                            offset: Offset(-4, -4)),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(width: 10),
+                        Text(
+                          "Pick image from gallery ",
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 18),
+                        ),
+                        Icon(Icons.linked_camera_outlined, color: Colors.white,
+                            ),
+                      ],
+                    ))),
+            SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ImageCapture extends StatefulWidget{
+  @override
+  _ImageCaptureState createState() => _ImageCaptureState();
+}
+
+
+class _ImageCaptureState extends State<ImageCapture> {
+
+  List<CameraDescription>? cameras; //list out the camera available
+  CameraController? imageController; //controller for camera
+  XFile? image; //for captured image
+
+  @override
+  void initState() {
+    loadImageCamera();
+    super.initState();
+  }
+
+  loadImageCamera() async {
+    cameras = await availableCameras();
+    if(cameras != null){
+      imageController = CameraController(cameras![0], ResolutionPreset.max);
+      //cameras[0] = first camera, change to 1 to another camera
+
+      imageController!.initialize().then((_) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {});
+      });
+    }else{
+      print("NO any camera found");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center( // Wyśrodkowanie całej zawartości
+        child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+                    height:300,
+                    width:400,
+                    child: imageController == null?
+                    Center(child:Text("Loading Camera...")):
+                    !imageController!.value.isInitialized?
+                    Center(
+                      child: CircularProgressIndicator(),
+                    ):
+                    CameraPreview(imageController!)
+                ),
+                SizedBox(height: 10,),
+                GestureDetector(
+                    onTap: () async{
+                      try {
+                        if(imageController != null){ //check if contrller is not null
+                          if(imageController!.value.isInitialized){ //check if controller is initialized
+                            image = await imageController!.takePicture(); //capture image
+                            setState(() {
+                              //update UI
+                            });
+                          }
+                        }
+                      } catch (e) {
+                        print(e); //show error
+                      }
+                    },
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: 250,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(244, 178, 176, 1),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color.fromARGB(
+                                  247,
+                                  0,
+                                  0,
+                                  0,
+                                ),
+                                spreadRadius: 2,
+                                blurRadius: 8,
+                                offset: Offset(4, 4)),
+                            BoxShadow(
+                                color: Colors.white,
+                                spreadRadius: 1,
+                                blurRadius: 8,
+                                offset: Offset(-4, -4)),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(width: 10),
+                            Text(
+                              "Capture ",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18),
+                            ),
+                            Icon(Icons.camera_outlined, color: Colors.white,
+                            ),
+                          ],
+                        ))),
+                Container( //show captured image
+                  padding: EdgeInsets.all(30),
+                  child: image == null?
+                  Text("No image captured"):
+                  Image.file(File(image!.path), height: 300,),
+                  //display captured image
+                )
+              ]
+          )
+      ),
+
+    );
+  }
 }

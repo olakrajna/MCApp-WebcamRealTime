@@ -162,54 +162,54 @@ class _SecondScreenState extends State<SecondScreen> {
                       ),
                     ),
                     SizedBox(height: 10,),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.leftToRight,
-                              child: CameraScreen(),
-                            ),
-                          );
-                          print("Click");
-                        },
-                        child: Container(
-                            alignment: Alignment.center,
-                            width: 200,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color.fromARGB(
-                                      247,
-                                      0,
-                                      0,
-                                      0,
-                                    ),
-                                    spreadRadius: 2,
-                                    blurRadius: 8,
-                                    offset: Offset(4, 4)),
-                                BoxShadow(
-                                    color: Colors.white,
-                                    spreadRadius: 1,
-                                    blurRadius: 8,
-                                    offset: Offset(-4, -4)),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(width: 10),
-                                Text(
-                                  "Camera ",
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(179, 64, 74, 1), fontSize: 18),
-                                ),
-                                Icon(Icons.camera_outlined, color: Color.fromRGBO(179, 64, 74, 1),),
-                              ],
-                            ))),
+                    // GestureDetector(
+                    //     onTap: () {
+                    //       Navigator.push(
+                    //         context,
+                    //         PageTransition(
+                    //           type: PageTransitionType.leftToRight,
+                    //           child: CameraScreen(),
+                    //         ),
+                    //       );
+                    //       print("Click");
+                    //     },
+                    //     child: Container(
+                    //         alignment: Alignment.center,
+                    //         width: 200,
+                    //         height: 40,
+                    //         decoration: BoxDecoration(
+                    //           color: Colors.white,
+                    //           borderRadius: BorderRadius.circular(12),
+                    //           boxShadow: [
+                    //             BoxShadow(
+                    //                 color: Color.fromARGB(
+                    //                   247,
+                    //                   0,
+                    //                   0,
+                    //                   0,
+                    //                 ),
+                    //                 spreadRadius: 2,
+                    //                 blurRadius: 8,
+                    //                 offset: Offset(4, 4)),
+                    //             BoxShadow(
+                    //                 color: Colors.white,
+                    //                 spreadRadius: 1,
+                    //                 blurRadius: 8,
+                    //                 offset: Offset(-4, -4)),
+                    //           ],
+                    //         ),
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: [
+                    //             SizedBox(width: 10),
+                    //             Text(
+                    //               "Camera ",
+                    //               style: TextStyle(
+                    //                   color: Color.fromRGBO(179, 64, 74, 1), fontSize: 18),
+                    //             ),
+                    //             Icon(Icons.camera_outlined, color: Color.fromRGBO(179, 64, 74, 1),),
+                    //           ],
+                    //         ))),
                     SizedBox(height: 20,),
                     GestureDetector(
                         onTap: () {

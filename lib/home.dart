@@ -151,7 +151,7 @@ class _HomeState extends State<Home> {
                                 children: [
                                   SizedBox(width: 10),
                                   Text(
-                                    "Camera",
+                                    "Classify skin lesion",
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 18),
                                   ),

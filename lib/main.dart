@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mcapp/home.dart';
 import 'package:mcapp/onboard.dart';
 import 'package:mcapp/splashscreen.dart';
-import 'package:tflite/tflite.dart';
+// import 'package:tflite/tflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -291,22 +291,10 @@ class _ImagePickerDemoState extends State<ImagePickerDemo> {
   final ImagePicker _picker = ImagePicker();
   XFile? _image;
   File? file;
-  var _recognitions;
-  var v = "";
-  // var dataList = [];
+
   @override
   void initState() {
     super.initState();
-    loadmodel().then((value) {
-      setState(() {});
-    });
-  }
-
-  loadmodel() async {
-    await Tflite.loadModel(
-      model: "assets/model9.tflite",
-      labels: "assets/labels9.txt",
-    );
   }
 
   Future<void> _pickImage() async {
@@ -316,39 +304,16 @@ class _ImagePickerDemoState extends State<ImagePickerDemo> {
         _image = image;
         file = File(image!.path);
       });
-      detectimage(file!);
     } catch (e) {
       print('Error picking image: $e');
     }
   }
 
-  Future detectimage(File image) async {
-    int startTime = new DateTime.now().millisecondsSinceEpoch;
-    var recognitions = await Tflite.runModelOnImage(
-      path: image.path,
-      numResults: 6,
-      threshold: 0.05,
-      imageMean: 127.5,
-      imageStd: 127.5,
-    );
-    setState(() {
-      _recognitions = recognitions;
-      v = recognitions.toString();
-      // dataList = List<Map<String, dynamic>>.from(jsonDecode(v));
-    });
-    print("//////////////////////////////////////////////////");
-    print(_recognitions);
-    // print(dataList);
-    print("//////////////////////////////////////////////////");
-    int endTime = new DateTime.now().millisecondsSinceEpoch;
-    print("Inference took ${endTime - startTime}ms");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
+      backgroundColor: Colors.white,
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -360,52 +325,59 @@ class _ImagePickerDemoState extends State<ImagePickerDemo> {
                 fit: BoxFit.cover,
               )
             else
-              Text('No image selected',
+              Text(
+                'No image selected',
                 style: TextStyle(
-                    color: Colors.grey.shade400,
-                     fontSize: 20),),
+                  color: Colors.grey.shade400,
+                  fontSize: 20,
+                ),
+              ),
             SizedBox(height: 20),
             GestureDetector(
-            onTap: _pickImage,
-                child: Container(
-                    alignment: Alignment.center,
-                    width: 250,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(244, 178, 176, 1),
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color.fromARGB(
-                              247,
-                              0,
-                              0,
-                              0,
-                            ),
-                            spreadRadius: 2,
-                            blurRadius: 8,
-                            offset: Offset(4, 4)),
-                        BoxShadow(
-                            color: Colors.white,
-                            spreadRadius: 1,
-                            blurRadius: 8,
-                            offset: Offset(-4, -4)),
-                      ],
+              onTap: _pickImage,
+              child: Container(
+                alignment: Alignment.center,
+                width: 250,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(244, 178, 176, 1),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(
+                        247,
+                        0,
+                        0,
+                        0,
+                      ),
+                      spreadRadius: 2,
+                      blurRadius: 8,
+                      offset: Offset(4, 4),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(width: 10),
-                        Text(
-                          "Pick image from gallery ",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 18),
-                        ),
-                        Icon(Icons.linked_camera_outlined, color: Colors.white,
-                            ),
-                      ],
-                    ))),
-            SizedBox(height: 20),
+                    BoxShadow(
+                      color: Colors.white,
+                      spreadRadius: 1,
+                      blurRadius: 8,
+                      offset: Offset(-4, -4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 10),
+                    Text(
+                      "Pick image from gallery ",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    Icon(
+                      Icons.linked_camera_outlined,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -457,8 +429,8 @@ class _ImageCaptureState extends State<ImageCapture> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-                    height:300,
-                    width:400,
+                    height:400,
+                    width:300,
                     child: imageController == null?
                     Center(child:Text("Loading Camera...")):
                     !imageController!.value.isInitialized?

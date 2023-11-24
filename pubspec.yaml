@@ -44,7 +44,7 @@ dependencies:
   lottie: ^2.3.2
   camera: ^0.10.4
   path_provider: ^2.0.11
-  tflite: ^1.1.2
+#  tflite: ^1.1.2
   shared_preferences: ^2.1.0
 
 
@@ -80,10 +80,10 @@ flutter:
   assets:  
     - assets/images/logo12.png
     - assets/animations/thewire2.json 
-    - assets/ml/model9.tflite
-    - assets/ml/modelLAST22.tflite
-    - assets/ml/labels9.txt
-    - assets/ml/label.txt
+#    - assets/ml/model9.tflite
+#    - assets/ml/modelLAST22.tflite
+#    - assets/ml/labels9.txt
+#    - assets/ml/label.txt
     - assets/images/body.png
     - assets/images/smartphone.png
     - assets/images/spotlight.png
